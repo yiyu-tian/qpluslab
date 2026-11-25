@@ -87,7 +87,7 @@
   .circuit { position: absolute; pointer-events: none; opacity: .55; }
 
   /* ---------- hero ---------- */
-  .hero { position: relative; padding: 72px 0 56px; }
+  .hero { position: relative; padding: 72px 16px 56px; }
   .hero-title { text-align: center; padding: 40px 24px 36px; }
   .hero-title h1 {
     font-family: "Press Start 2P", monospace;
@@ -293,7 +293,14 @@
   @media (max-width: 640px) {
     body { font-size: 20px; }
     nav ul { display: none; }
-    .hero { padding: 40px 0 32px; }
+    .hero { padding: 40px 16px 32px; }
+    .term { display: none; }
+    .crew:not(.small) { flex-wrap: nowrap; gap: 8px; }
+    .crew:not(.small) .pal { width: auto; flex: 1 1 0; min-width: 0; max-width: 72px; }
+    .crew:not(.small) .tile { border-width: 3px; box-shadow: 3px 3px 0 rgba(0,0,0,.4); }
+    .bubble { font-size: 7px; padding: 4px 6px; }
+    .statcard { margin-top: 36px; padding: 16px; }
+    .stat { grid-template-columns: 70px 1fr; }
     .project { grid-template-columns: 1fr; padding: 20px; }
     .project .icon { width: 100%; height: 130px; }
     .about-box { padding: 22px; }

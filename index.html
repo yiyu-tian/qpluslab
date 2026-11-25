@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q+ Lab</title>
+<meta name="description" content="Q+ Lab — a research collective opening doors to AI research for queer women. Est. 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1b2545;
+    --navy-2: #243159;
+    --navy-3: #2e3d6b;
+    --teal: #63c7bf;
+    --teal-2: #4fb0a9;
+    --teal-dark: #2a7f7a;
+    --gold: #f5c86b;
+    --orange: #e8823a;
+    --ink: #13192e;
+    --cream: #fdf3d6;
+    --pink: #f28dbb;
+    --violet: #a88bf0;
+    --px: 4px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--ink);
+    font-family: "VT323", ui-monospace, monospace;
+    font-size: 22px;
+    line-height: 1.35;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(99,199,191,.12) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+  a { color: inherit; }
+  img, svg { display: block; }
+  .pixel { image-rendering: pixelated; shape-rendering: crispEdges; }
+
+  /* ---------- pixel frame ---------- */
+  .frame {
+    position: relative;
+    background: var(--teal);
+    border: var(--px) solid var(--ink);
+    box-shadow:
+      inset calc(var(--px) * 1) calc(var(--px) * 1) 0 rgba(255,255,255,.35),
+      inset calc(var(--px) * -1) calc(var(--px) * -1) 0 rgba(0,0,0,.18),
+      0 0 0 var(--px) var(--teal-dark),
+      calc(var(--px) * 2) calc(var(--px) * 3) 0 var(--px) rgba(0,0,0,.45);
+  }
+  .frame.dark { background: var(--navy-3); color: var(--cream); }
+  .frame.gold { background: var(--gold); }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(27,37,69,.94);
+    border-bottom: var(--px) solid var(--ink);
+    box-shadow: 0 var(--px) 0 var(--teal-dark);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 12px; }
+  .logo {
+    font-family: "Press Start 2P", monospace; font-size: 16px; color: var(--gold);
+    text-decoration: none; text-shadow: 3px 3px 0 var(--ink); white-space: nowrap;
+  }
+  .logo span { color: var(--pink); }
+  nav ul { list-style: none; display: flex; gap: 22px; }
+  nav ul a {
+    font-family: "Press Start 2P", monospace; font-size: 10px; color: var(--teal);
+    text-decoration: none; padding: 6px 0;
+  }
+  nav ul a:hover, nav ul a.active { color: var(--gold); }
+  nav ul a.active::before { content: "▶ "; }
+
+  /* ---------- decorations ---------- */
+  .deco { position: absolute; pointer-events: none; }
+  .star { width: 28px; height: 28px; animation: twinkle 2.4s steps(2) infinite; }
+  .star.s2 { animation-delay: .8s; width: 20px; height: 20px; }
+  .star.s3 { animation-delay: 1.6s; }
+  @keyframes twinkle { 50% { opacity: .35; transform: scale(.8); } }
+  .circuit { position: absolute; pointer-events: none; opacity: .55; }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; padding: 72px 0 56px; }
+  .hero-title { text-align: center; padding: 40px 24px 36px; }
+  .hero-title h1 {
+    font-family: "Press Start 2P", monospace;
+    font-size: clamp(44px, 9vw, 96px);
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-shadow: 4px 4px 0 var(--ink), 8px 8px 0 rgba(0,0,0,.25);
+    line-height: 1.1;
+  }
+  .hero-title h1 .plus { color: var(--pink); }
+  .tagline {
+    margin-top: 22px;
+    font-family: "Press Start 2P", monospace;
+    font-size: clamp(11px, 1.8vw, 15px);
+    color: var(--ink);
+    line-height: 1.8;
+  }
+  .subtag { margin-top: 12px; font-size: 24px; color: var(--navy); }
+  .est {
+    display: inline-block; margin-top: 22px;
+    font-family: "Press Start 2P", monospace; font-size: 11px;
+    background: var(--ink); color: var(--gold);
+    padding: 8px 12px;
+  }
+  .cursor-blink::after { content: "_"; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .rainbow {
+    display: flex; height: 8px; margin: 0 auto; width: 70%; max-width: 420px; margin-top: 26px;
+    border: 3px solid var(--ink);
+  }
+  .rainbow i { flex: 1; }
+
+  /* ---------- section headings ---------- */
+  section { padding: 56px 0; position: relative; }
+  section.wrap { padding-top: 64px; padding-bottom: 64px; }
+  @media (max-width: 640px) { section.wrap { padding-top: 48px; padding-bottom: 48px; } }
+  .label {
+    display: inline-block;
+    font-family: "Press Start 2P", monospace; font-size: clamp(14px, 2.4vw, 20px);
+    color: var(--ink); padding: 14px 18px; margin-bottom: 36px;
+    background: var(--teal);
+  }
+  .label small { color: var(--teal-dark); }
+
+  /* ---------- about ---------- */
+  .about-box { padding: 32px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; }
+  .about-box p { font-size: 26px; max-width: 640px; }
+  .about-box p + p { margin-top: 14px; }
+  .about-box strong { color: var(--navy); background: rgba(255,255,255,.35); padding: 0 4px; }
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+  .pillar { padding: 18px 18px 20px; }
+  .pillar h3 { font-family: "Press Start 2P", monospace; font-size: 12px; color: var(--gold); margin-bottom: 10px; }
+  .pillar p { font-size: 21px; color: var(--cream); }
+
+  /* ---------- terminal window ---------- */
+  .term {
+    background: var(--navy); border: var(--px) solid var(--ink); width: 230px;
+    box-shadow: 6px 6px 0 rgba(0,0,0,.35);
+    font-size: 19px; color: var(--teal);
+  }
+  .term .bar { background: var(--navy-3); padding: 6px 8px; display: flex; gap: 6px; border-bottom: 3px solid var(--ink); }
+  .term .bar i { width: 10px; height: 10px; background: var(--orange); display: block; }
+  .term .bar i:nth-child(2) { background: var(--gold); }
+  .term .bar i:nth-child(3) { background: var(--teal); }
+  .term pre { padding: 10px 12px; font-family: inherit; white-space: pre-wrap; line-height: 1.25; }
+  .term .g { color: var(--gold); }
+  .term .p { color: var(--pink); }
+
+  /* ---------- projects ---------- */
+  .projects { display: grid; gap: 28px; }
+  .project { display: grid; grid-template-columns: 150px 1fr; gap: 26px; padding: 26px; }
+  .project .icon {
+    width: 150px; height: 150px; background: var(--navy);
+    border: var(--px) solid var(--ink);
+    display: grid; place-items: center;
+    box-shadow: inset 4px 4px 0 rgba(255,255,255,.08);
+  }
+  .project .icon svg { width: 112px; height: 112px; }
+  .project h3 {
+    font-family: "Press Start 2P", monospace; font-size: clamp(14px, 2vw, 19px);
+    color: var(--ink); line-height: 1.5; margin-bottom: 10px;
+  }
+  .project .sub { font-size: 21px; color: var(--teal-dark); margin-top: -4px; margin-bottom: 10px; font-weight: bold; }
+  .project p.desc { font-size: 23px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 16px; }
+  .badge {
+    font-family: "Press Start 2P", monospace; font-size: 10px; line-height: 1.4;
+    padding: 7px 10px; border: 3px solid var(--ink); background: var(--cream); color: var(--ink);
+  }
+  .badge.award { background: var(--gold); }
+  .badge.award::before { content: "★ "; color: var(--orange); }
+  .badge.live { background: #8fe388; }
+  .badge.live::before { content: "● "; color: #1f7a2a; animation: blink 1.4s steps(1) infinite; }
+  .badge.wip { background: #ffe08a; }
+  .badge.wip::before { content: "◐ "; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    font-family: "Press Start 2P", monospace; font-size: 10px; text-decoration: none;
+    background: var(--navy); color: var(--teal); padding: 10px 12px;
+    border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    transition: transform .08s steps(1), box-shadow .08s steps(1);
+  }
+  .btn:hover { color: var(--gold); transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn:focus-visible, nav a:focus-visible { outline: 3px dashed var(--gold); outline-offset: 3px; }
+
+  /* ---------- contact ---------- */
+  .contact { padding: 34px; text-align: center; }
+  .contact h2 { font-family: "Press Start 2P", monospace; font-size: clamp(18px, 3vw, 28px); line-height: 1.5; color: var(--ink); }
+  .contact p { font-size: 25px; margin: 16px auto 24px; max-width: 640px; }
+  .contact .links { justify-content: center; }
+  .contact .btn.big { font-size: 12px; padding: 14px 16px; background: var(--ink); color: var(--gold); }
+
+  footer {
+    text-align: center; padding: 36px 16px 48px; color: var(--teal);
+    font-family: "Press Start 2P", monospace; font-size: 10px; line-height: 2;
+  }
+  footer .heart { color: var(--pink); }
+
+  /* ---------- pixel crew ---------- */
+  .crew { display: flex; justify-content: center; gap: clamp(10px, 3vw, 28px); margin-top: 34px; flex-wrap: wrap; }
+  .crew.small { margin-top: 0; gap: 12px; }
+  .pal { position: relative; width: 104px; text-align: center; }
+  .crew.small .pal { width: 76px; }
+  .pal .tile {
+    width: 100%; aspect-ratio: 1; background: var(--navy-3);
+    border: var(--px) solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,.4), inset 0 -10px 0 rgba(0,0,0,.15);
+    display: grid; place-items: end center; overflow: hidden;
+    animation: bob 1.6s steps(2) infinite;
+  }
+  .pal:nth-child(2) .tile { animation-delay: .4s; }
+  .pal:nth-child(3) .tile { animation-delay: .8s; }
+  .pal:nth-child(4) .tile { animation-delay: 1.2s; }
+  .pal:nth-child(5) .tile { animation-delay: .2s; }
+  .pal svg { width: 88%; height: 88%; }
+  .pal:hover .tile { animation: hop .4s steps(3) 1; }
+  @keyframes bob { 50% { transform: translateY(-4px); } }
+  @keyframes hop { 50% { transform: translateY(-14px); } }
+  .bubble {
+    position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+    background: var(--cream); color: var(--ink); border: 3px solid var(--ink);
+    font-family: "Press Start 2P", monospace; font-size: 8px; line-height: 1.5;
+    padding: 6px 8px; white-space: nowrap; opacity: 0; transition: opacity .15s steps(1);
+    pointer-events: none; z-index: 2;
+  }
+  .bubble::after {
+    content: ""; position: absolute; top: 100%; left: 50%; margin-left: -4px;
+    border: 5px solid transparent; border-top-color: var(--ink);
+  }
+  .pal:hover .bubble, .pal.talk .bubble { opacity: 1; }
+  button.pal { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; }
+  button.pal:focus-visible .tile { outline: 3px dashed var(--gold); outline-offset: 4px; }
+  .pal.sel .tile { border-color: var(--gold); box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px rgba(0,0,0,.4); background: var(--teal-dark); }
+  .pal.sel::after {
+    content: "1P"; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 10px;
+    font-family: "Press Start 2P", monospace; font-size: 10px; color: var(--gold); animation: blink 1s steps(1) infinite;
+  }
+  .select-head {
+    text-align: center; margin-top: 40px;
+    font-family: "Press Start 2P", monospace; font-size: clamp(10px, 1.6vw, 13px); color: var(--teal);
+  }
+  .statcard { max-width: 460px; margin: 42px auto 0; padding: 18px 22px; }
+  .statcard .cls { font-family: "Press Start 2P", monospace; font-size: 14px; color: var(--gold); }
+  .statcard .line { font-size: 21px; margin: 6px 0 12px; }
+  .stat { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 10px; margin-top: 6px; }
+  .stat span { font-family: "Press Start 2P", monospace; font-size: 9px; color: var(--teal); }
+  .stat b { display: block; height: 14px; background: var(--ink); border: 2px solid var(--ink); }
+  .stat i {
+    display: block; height: 100%; width: 0; transition: width .4s steps(10);
+    background: repeating-linear-gradient(90deg, var(--pink) 0 14px, transparent 14px 16px);
+  }
+  .start-wrap { text-align: center; margin-top: 30px; }
+  .start {
+    display: inline-block; font-family: "Press Start 2P", monospace; font-size: 14px; color: var(--gold);
+    text-decoration: none; padding: 12px 16px; animation: blink 1.2s steps(1) infinite;
+  }
+  .start:hover { animation: none; color: var(--pink); }
+
+  /* HUD xp bar */
+  .hud { display: flex; align-items: center; gap: 8px; font-family: "Press Start 2P", monospace; font-size: 9px; color: var(--gold); }
+  .hud b { width: 90px; height: 10px; background: var(--ink); border: 2px solid var(--teal-dark); display: block; }
+  .hud i { display: block; height: 100%; width: 0; background: var(--gold); }
+  @media (max-width: 640px) { .hud b { width: 60px; } }
+
+  .contact-head { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s steps(5), transform .5s steps(5); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .star, .badge.live::before, .cursor-blink::after, .pal .tile, .pal:hover .tile { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 820px) {
+    nav ul { gap: 14px; }
+    .about-box { grid-template-columns: 1fr; }
+    .term { width: 100%; }
+    .pillars { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 20px; }
+    nav ul { display: none; }
+    .hero { padding: 40px 0 32px; }
+    .project { grid-template-columns: 1fr; padding: 20px; }
+    .project .icon { width: 100%; height: 130px; }
+    .about-box { padding: 22px; }
+    .about-box p { font-size: 23px; }
+    .deco.hide-sm, .circuit { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- reusable pixel star -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="star" viewBox="0 0 7 7">
+      <path class="pixel" fill="#f5c86b" d="M3 0h1v2h1v1h2v1h-2v1h-1v2h-1v-2h-1v-1h-2v-1h2v-1h1z"/>
+    </symbol>
+    <symbol id="sparkle" viewBox="0 0 7 7">
+      <path class="pixel" fill="#fdf3d6" d="M3 0h1v3h3v1h-3v3h-1v-3h-3v-1h3z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">Q<span>+</span> LAB</a>
+    <div class="hud" aria-hidden="true">XP <b><i id="xp"></i></b> <span id="lv">LV1</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero wrap" id="top">
+  <!-- decorations -->
+  <svg class="deco star" style="top:28px; right:4%"><use href="#star"/></svg>
+  <svg class="deco star s2" style="top:52%; left:0"><use href="#star"/></svg>
+  <svg class="deco star s3 hide-sm" style="bottom:20px; right:10%"><use href="#sparkle"/></svg>
+  <svg class="circuit" style="top:120px; left:-60px" width="80" height="120" viewBox="0 0 80 120">
+    <path d="M0 20h40v40h30M0 60h20v40h50M0 100h60" stroke="#63c7bf" stroke-width="3" fill="none"/>
+    <rect x="66" y="56" width="8" height="8" fill="#e8823a"/><rect x="66" y="96" width="8" height="8" fill="#f5c86b"/>
+  </svg>
+  <svg class="circuit" style="top:160px; right:-60px; transform:scaleX(-1)" width="80" height="120" viewBox="0 0 80 120">
+    <path d="M0 20h40v40h30M0 60h20v40h50M0 100h60" stroke="#63c7bf" stroke-width="3" fill="none"/>
+    <rect x="66" y="56" width="8" height="8" fill="#f28dbb"/><rect x="66" y="96" width="8" height="8" fill="#63c7bf"/>
+  </svg>
+
+  <div class="frame hero-title">
+    <h1>Q<span class="plus">+</span> Lab</h1>
+    <p class="tagline cursor-blink" id="typed">Learn AI. Build projects. Make an impact.</p>
+    <p class="subtag">A home for queer women in AI</p>
+    <div class="rainbow" aria-hidden="true">
+      <i style="background:#e8574a"></i><i style="background:#e8823a"></i><i style="background:#f5c86b"></i>
+      <i style="background:#6fcf7a"></i><i style="background:#4f8fe0"></i><i style="background:#a88bf0"></i>
+    </div>
+    <span class="est">EST. 2026</span>
+  </div>
+
+  <div class="select-head">— SELECT YOUR CHARACTER —</div>
+  <div class="crew" id="crew">
+    <button class="pal" data-cls="AI LEARNER" data-stats="10,6,7" data-line="Learn AI from the ground up — every expert started here."><span class="bubble">Hi, world!</span><div class="tile" data-av="green"></div></button>
+    <button class="pal" data-cls="PROJECT BUILDER" data-stats="7,10,8" data-line="Turn ideas into open-source projects people use."><span class="bubble">Ship it!</span><div class="tile" data-av="pixie"></div></button>
+    <button class="pal sel" data-cls="IMPACT MAKER" data-stats="8,8,10" data-line="Build AI that makes a difference in the world."><span class="bubble">Let's build!</span><div class="tile" data-av="mohawk"></div></button>
+    <button class="pal" data-cls="RESEARCHER" data-stats="9,8,9" data-line="Explore open questions and publish what we find."><span class="bubble">Reading arXiv</span><div class="tile" data-av="curly"></div></button>
+    <button class="pal" data-cls="CHALLENGER" data-stats="8,9,8" data-line="Take on global AI competitions and hackathons."><span class="bubble">Game on!</span><div class="tile" data-av="bun"></div></button>
+  </div>
+  <div class="statcard frame dark" aria-live="polite">
+    <div class="cls" id="cls">IMPACT MAKER</div>
+    <div class="line" id="clsline">Build AI that makes a difference in the world.</div>
+    <div class="stat"><span>LEARN</span><b><i id="st0"></i></b></div>
+    <div class="stat"><span>BUILD</span><b><i id="st1"></i></b></div>
+    <div class="stat"><span>IMPACT</span><b><i id="st2"></i></b></div>
+  </div>
+  <div class="start-wrap"><a class="start" href="#about">▶ PRESS START</a></div>
+</header>
+
+<main>
+  <!-- ABOUT -->
+  <section id="about" class="wrap reveal">
+    <h2 class="label frame">About Us</h2>
+    <div class="frame about-box">
+      <div>
+        <p><strong>Q+ Lab</strong> is a research collective founded in 2026 to empower queer women in AI — opening doors to meaningful research, mentorship, and recognition in a field where our voices remain underrepresented.</p>
+        <p>Here, members <strong>learn AI</strong> together, <strong>build projects</strong> that span reinforcement learning, agents, benchmarks, and finance, and <strong>create impact</strong> through research, competitions, and open-source work — because the future of AI should be shaped by every voice.</p>
+      </div>
+      <div class="term" aria-hidden="true">
+        <div class="bar"><i></i><i></i><i></i></div>
+<pre><span class="g">$</span> whoami
+q+ lab
+<span class="g">$</span> cat mission.txt
+<span class="p">research</span> for all
+<span class="g">$</span> ls focus/
+learn/ build/
+research/ impact/</pre>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="frame dark pillar">
+        <h3>&gt; Learn</h3>
+        <p>Hands-on paths into AI — guided courses, reading groups, and mentorship from people who have been there.</p>
+      </div>
+      <div class="frame dark pillar">
+        <h3>&gt; Build</h3>
+        <p>Open-source projects across reinforcement learning, agents, benchmarks, finance, and more.</p>
+      </div>
+      <div class="frame dark pillar">
+        <h3>&gt; Impact</h3>
+        <p>Papers, prizes, and tools the community builds on — led by queer women in AI.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="wrap">
+    <h2 class="label frame reveal">Projects</h2>
+    <p class="reveal" style="color:var(--cream); font-size:25px; max-width:760px; margin:-8px 0 28px">Four projects, four corners of AI — each tackling an open problem the field cares about, and each released openly so others can build on it.</p>
+    <div class="projects">
+
+      <!-- OpenRA-RL -->
+      <article class="frame project reveal">
+        <div class="icon" aria-hidden="true">
+          <!-- pixel game controller -->
+          <svg class="pixel" viewBox="0 0 16 16">
+            <rect x="2" y="5" width="12" height="7" fill="#fdf3d6"/>
+            <rect x="1" y="6" width="1" height="6" fill="#fdf3d6"/><rect x="14" y="6" width="1" height="6" fill="#fdf3d6"/>
+            <rect x="1" y="12" width="4" height="2" fill="#fdf3d6"/><rect x="11" y="12" width="4" height="2" fill="#fdf3d6"/>
+            <rect x="4" y="7" width="1" height="3" fill="#1b2545"/><rect x="3" y="8" width="3" height="1" fill="#1b2545"/>
+            <rect x="11" y="7" width="1" height="1" fill="#e8823a"/><rect x="12" y="8" width="1" height="1" fill="#f28dbb"/>
+            <rect x="10" y="8" width="1" height="1" fill="#63c7bf"/><rect x="11" y="9" width="1" height="1" fill="#f5c86b"/>
+            <rect x="7" y="8" width="2" height="1" fill="#2e3d6b"/>
+          </svg>
+        </div>
+        <div>
+          <h3>OpenRA-RL</h3>
+          <div class="sub">Reinforcement learning environment for real-time strategy · built on OpenEnv</div>
+          <p class="desc">An open RL environment that turns the classic RTS game OpenRA into a playground for LLM agents. Agents must perceive the battlefield, plan, and act under complex spatial reasoning — a challenge far beyond board games like Go or chess.</p>
+          <div class="badges">
+            <span class="badge live">Under review · ICLR 2027</span>
+            <span class="badge">OpenEnv Challenge</span>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://huggingface.co/blog/jadetan/openra-rl" target="_blank" rel="noopener">HF Blog</a>
+            <a class="btn" href="https://huggingface.co/spaces/openra-rl/OpenEnv-Competition" target="_blank" rel="noopener">Competition Blog</a>
+            <a class="btn" href="https://huggingface.co/spaces/openra-rl/openra-rl-challenge" target="_blank" rel="noopener">HF Space</a>
+            <a class="btn" href="https://github.com/yxc20089/OpenRA-RL" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="https://youtu.be/YaO-KyHiXfo" target="_blank" rel="noopener">Replay ▶</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- TraderBench -->
+      <article class="frame project reveal">
+        <div class="icon" aria-hidden="true">
+          <!-- pixel bar chart + coin -->
+          <svg class="pixel" viewBox="0 0 16 16">
+            <rect x="2" y="9" width="2" height="5" fill="#63c7bf"/>
+            <rect x="5" y="6" width="2" height="8" fill="#63c7bf"/>
+            <rect x="8" y="8" width="2" height="6" fill="#63c7bf"/>
+            <rect x="11" y="3" width="2" height="11" fill="#f28dbb"/>
+            <rect x="1" y="14" width="14" height="1" fill="#fdf3d6"/>
+            <rect x="2" y="2" width="4" height="4" fill="#f5c86b"/><rect x="3" y="1" width="2" height="1" fill="#f5c86b"/><rect x="3" y="6" width="2" height="1" fill="#f5c86b"/>
+            <rect x="1" y="3" width="1" height="2" fill="#f5c86b"/><rect x="6" y="3" width="1" height="2" fill="#f5c86b"/>
+            <rect x="3" y="3" width="2" height="2" fill="#e8823a"/>
+          </svg>
+        </div>
+        <div>
+          <h3>TraderBench</h3>
+          <div class="sub">Finance agent benchmark · UC Berkeley AgentX–AgentBeats Competition</div>
+          <p class="desc">A benchmark for evaluating how robust LLM agents are in adversarial capital markets. Our team AgentBusters placed second in the Finance Agent track of UC Berkeley RDI's AgentX–AgentBeats Competition.</p>
+          <div class="badges">
+            <span class="badge award">2nd Place · Finance Agent Track</span>
+            <span class="badge">arXiv 2026</span>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://arxiv.org/abs/2603.00285" target="_blank" rel="noopener">Paper</a>
+            <a class="btn" href="https://github.com/yxc20089/TraderBench" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="https://agentbeats.dev/yxc20089/agentbusters-financebusters" target="_blank" rel="noopener">Leaderboard</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Agent Safety -->
+      <article class="frame project reveal">
+        <div class="icon" aria-hidden="true">
+          <!-- pixel shield -->
+          <svg class="pixel" viewBox="0 0 16 16">
+            <rect x="3" y="2" width="10" height="7" fill="#fdf3d6"/>
+            <rect x="4" y="9" width="8" height="2" fill="#fdf3d6"/>
+            <rect x="5" y="11" width="6" height="1" fill="#fdf3d6"/>
+            <rect x="6" y="12" width="4" height="1" fill="#fdf3d6"/>
+            <rect x="7" y="13" width="2" height="1" fill="#fdf3d6"/>
+            <rect x="4" y="3" width="4" height="5" fill="#a88bf0"/>
+            <rect x="8" y="8" width="3" height="2" fill="#a88bf0"/><rect x="8" y="10" width="2" height="1" fill="#a88bf0"/>
+            <rect x="7" y="1" width="2" height="1" fill="#f5c86b"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Agent Safety · QuietChaos</h3>
+          <div class="sub">Red-teaming LLM agents · UC Berkeley AgentX–AgentBeats Competition</div>
+          <p class="desc">Team QuietChaos designed attacker agents that probe the defenses of LLM agents across realistic scenarios, and stress-tested the approach on 25+ open and frontier models.</p>
+          <div class="badges">
+            <!-- TODO: replace with the actual award name -->
+            <span class="badge award">[Award TBD]</span>
+            <span class="badge">AgentX–AgentBeats 2026</span>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://github.com/xiaoxuansu/agentbeats-lambda-phase2-quietchaos" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- OpenRA-Bench -->
+      <article class="frame project reveal">
+        <div class="icon" aria-hidden="true">
+          <!-- pixel map grid with flag -->
+          <svg class="pixel" viewBox="0 0 16 16">
+            <rect x="1" y="3" width="14" height="11" fill="#2e3d6b"/>
+            <rect x="1" y="3" width="4" height="4" fill="#4fb0a9"/><rect x="9" y="7" width="6" height="3" fill="#4fb0a9"/>
+            <rect x="5" y="10" width="4" height="4" fill="#4fb0a9"/>
+            <rect x="1" y="7" width="1" height="7" fill="#13192e"/><rect x="12" y="3" width="3" height="4" fill="#13192e"/>
+            <rect x="3" y="11" width="1" height="1" fill="#f28dbb"/><rect x="4" y="12" width="1" height="1" fill="#f28dbb"/>
+            <rect x="6" y="5" width="1" height="1" fill="#fdf3d6"/><rect x="7" y="6" width="1" height="1" fill="#fdf3d6"/><rect x="8" y="7" width="1" height="1" fill="#fdf3d6"/>
+            <rect x="10" y="1" width="1" height="7" fill="#fdf3d6"/><rect x="11" y="1" width="3" height="2" fill="#e8823a"/>
+          </svg>
+        </div>
+        <div>
+          <h3>OpenRA-Bench</h3>
+          <div class="sub">Scenario-based spatial reasoning benchmark</div>
+          <p class="desc">Hand-designed RTS scenarios, each with a defined start state, goal state, and algorithmic baseline. Instead of asking whether an LLM can play, we pinpoint exactly where models break down — seeing, planning, and executing.</p>
+          <div class="badges">
+            <span class="badge wip">In progress</span>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://github.com/yxc20089/OpenRA-Bench" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="https://github.com/yxc20089/OpenRA-Rust" target="_blank" rel="noopener">OpenRA-Rust</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="wrap reveal">
+    <h2 class="label frame">Contact</h2>
+    <div class="frame contact">
+      <svg class="deco star" style="top:-14px; right:-14px"><use href="#star"/></svg>
+      <div class="contact-head">
+        <div class="crew small" aria-hidden="true">
+          <div class="pal"><span class="bubble">Join us!</span><div class="tile" data-av="curly"></div></div>
+        </div>
+        <h2>Join the Party</h2>
+        <div class="crew small" aria-hidden="true">
+          <div class="pal"><span class="bubble">♥</span><div class="tile" data-av="green"></div></div>
+        </div>
+      </div>
+      <p>Curious about our work, interested in collaborating, or want to get involved? We'd love to hear from you.</p>
+      <div class="links">
+        <a class="btn big" href="mailto:qpluslab.team@gmail.com">✉ qpluslab.team@gmail.com</a>
+        <a class="btn big" href="mailto:jadeyt@upwomxn.org">✉ jadeyt@upwomxn.org</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2026 Q+ LAB
+</footer>
+
+<script>
+  // ---- pixel avatars (16x16) ----
+  const SHIRT = (pin) => [
+    ".......ss.......",
+    ".....cccccc.....",
+    "...c" + (pin ? "a" : "c") + "cccccccc...",
+    "..cccccccccccc..",
+    "..cccccccccccc..",
+  ];
+  const FACE = ["ssessess", "bssssssb", "sssmmsss"];
+  const AVATARS = {
+    green: { skin: "#f6d2b0", hair: "#3fbf6a", shirt: "#2e3d6b", grid: [
+      "................", ".....hhhhhh.....", "...hhhhhhhhhh...", "..hhhhhhhhhhhh..",
+      "..hhhhsssshhhh..", "..hhsssssssshh..", "..hhsssssssshh..", "..hh"+FACE[0]+"hh..",
+      "..hh"+FACE[1]+"hh..", "..hh"+FACE[2]+"hh..", "..hhhsssssshhh..", "..hhhhhsshhhhh..",
+      "..hhhcccccchhh..", "..hccccccccccc..", "..cccccccccccc..", "..cccccccccccc.." ] },
+    pixie: { skin: "#a86b45", hair: "#1b1b2a", shirt: "#e8823a", grid: [
+      "................", "................", "....hhhhhhhh....", "...hhhhhhhhhh...",
+      "...hhhhhhhhhhh..", "...hssssssssh...", "....ssssssss....", "...."+FACE[0]+"....",
+      "...."+FACE[1]+"....", "...."+FACE[2]+"....", ".....ssssss.....", ...SHIRT(true) ] },
+    mohawk: { skin: "#f1c49b", hair: "#7a5c8a", shirt: "#13192e", grid: [
+      ".....123456.....", ".....123456.....", ".....123456.....", "....d123456d....",
+      "....d123456d....", "....ssssssss....", "....ssssssss....", "...."+FACE[0]+"....",
+      "...."+FACE[1]+"a...", "...."+FACE[2]+"....", ".....ssssss.....", ...SHIRT(false) ] },
+    curly: { skin: "#6b4128", hair: "#2a1a14", shirt: "#a88bf0", grid: [
+      "....hhhhhhhh....", "..hhhhhhhhhhhh..", ".hhhhhhhhhhhhhh.", ".hhhhhhhhhhhhhh.",
+      ".hhhhhhhhhhhhhh.", ".hhhsssssssshhh.", ".hhhsssssssshhh.", ".hhhsgeggegshhh.",
+      ".hhh"+FACE[1]+"hhh.", "..hh"+FACE[2]+"hh..", "...hhsssssshh...", ...SHIRT(true) ] },
+    bun: { skin: "#e0a77a", hair: "#e8574a", shirt: "#63c7bf", grid: [
+      "......hhhh......", "......hhhh......", "....hhhhhhhh....", "...hhhhhhhhhh...",
+      "...hhhhhhhhhh...", "...hssssssssh...", "....ssssssss....", "...."+FACE[0]+"....",
+      "...."+FACE[1]+"....", "...."+FACE[2]+"....", ".....ssssss.....", ...SHIRT(true) ] },
+  };
+  const FIXED = { e: "#13192e", g: "#e8823a", m: "#c2416b", b: "#f28dbb", a: "#f5c86b",
+    1: "#e8574a", 2: "#e8823a", 3: "#f5c86b", 4: "#6fcf7a", 5: "#4f8fe0", 6: "#a88bf0" };
+  const drawAvatar = (key) => {
+    const av = AVATARS[key];
+    const col = { ...FIXED, s: av.skin, h: av.hair, d: av.hair, c: av.shirt };
+    let rects = "";
+    av.grid.forEach((row, y) => [...row].forEach((ch, x) => {
+      if (ch !== "." && col[ch]) rects += `<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${col[ch]}"${ch === "b" ? ' opacity=".6"' : ""}/>`;
+    }));
+    return `<svg viewBox="0 0 16 16" shape-rendering="crispEdges">${rects}</svg>`;
+  };
+  document.querySelectorAll("[data-av]").forEach(el => { el.innerHTML = drawAvatar(el.dataset.av); });
+
+  // ---- character select ----
+  const pals = [...document.querySelectorAll('#crew .pal')];
+  const pick = (p) => {
+    pals.forEach(x => x.classList.toggle('sel', x === p));
+    document.getElementById('cls').textContent = p.dataset.cls;
+    document.getElementById('clsline').textContent = p.dataset.line;
+    p.dataset.stats.split(',').forEach((v, i) => { document.getElementById('st' + i).style.width = (v * 10) + '%'; });
+  };
+  pals.forEach(p => p.addEventListener('click', () => pick(p)));
+  pick(document.querySelector('#crew .pal.sel'));
+
+  // ---- XP bar = scroll progress ----
+  const xp = document.getElementById('xp'), lv = document.getElementById('lv');
+  const onXP = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const r = max > 0 ? Math.min(1, scrollY / max) : 0;
+    xp.style.width = (r * 100) + '%';
+    lv.textContent = r > 0.98 ? 'MAX' : 'LV' + (1 + Math.floor(r * 4));
+  };
+  addEventListener('scroll', onXP, { passive: true }); onXP();
+
+  // reveal on scroll
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 }) : null;
+  document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+  // active nav link
+  const links = [...document.querySelectorAll('nav ul a')];
+  const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+  const onScroll = () => {
+    const y = window.scrollY + 120;
+    let idx = -1;
+    sections.forEach((s, i) => { if (s && s.offsetTop <= y) idx = i; });
+    links.forEach((a, i) => a.classList.toggle('active', i === idx));
+  };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // typewriter tagline
+  const el = document.getElementById('typed');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const text = el.textContent; el.textContent = ''; let i = 0;
+    const tick = () => { el.textContent = text.slice(0, ++i); if (i < text.length) setTimeout(tick, 45); };
+    setTimeout(tick, 300);
+  }
+</script>
+</body>
+</html>

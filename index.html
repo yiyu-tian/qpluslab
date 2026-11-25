@@ -222,7 +222,6 @@
   .pal:nth-child(3) .tile { animation-delay: .8s; }
   .pal:nth-child(4) .tile { animation-delay: 1.2s; }
   .pal:nth-child(5) .tile { animation-delay: .2s; }
-  .pal:nth-child(6) .tile { animation-delay: 1s; }
   .pal svg { width: 88%; height: 88%; }
   .pal:hover .tile { animation: hop .4s steps(3) 1; }
   @keyframes bob { 50% { transform: translateY(-4px); } }
@@ -359,9 +358,8 @@
     <button class="pal" data-cls="AI LEARNER" data-stats="10,6,7" data-line="Learn AI from the ground up — every expert started here."><span class="bubble">Hi, world!</span><div class="tile" data-av="green"></div></button>
     <button class="pal" data-cls="PROJECT BUILDER" data-stats="7,10,8" data-line="Turn ideas into open-source projects people use."><span class="bubble">Ship it!</span><div class="tile" data-av="pixie"></div></button>
     <button class="pal sel" data-cls="IMPACT MAKER" data-stats="8,8,10" data-line="Build AI that makes a difference in the world."><span class="bubble">Let's build!</span><div class="tile" data-av="mohawk"></div></button>
-    <button class="pal" data-cls="RESEARCHER" data-stats="9,8,9" data-line="Explore open questions and publish what we find."><span class="bubble">Reading arXiv</span><div class="tile" data-av="bob"></div></button>
+    <button class="pal" data-cls="RESEARCHER" data-stats="9,8,9" data-line="Explore open questions and publish what we find."><span class="bubble">Reading arXiv</span><div class="tile" data-av="curly"></div></button>
     <button class="pal" data-cls="CHALLENGER" data-stats="8,9,8" data-line="Take on global AI competitions and hackathons."><span class="bubble">Game on!</span><div class="tile" data-av="bun"></div></button>
-    <button class="pal" data-cls="TEAM CAPTAIN" data-stats="8,8,9" data-line="Bring people together and lead the way."><span class="bubble">Team up!</span><div class="tile" data-av="pony"></div></button>
   </div>
   <div class="statcard frame dark" aria-live="polite">
     <div class="cls" id="cls">IMPACT MAKER</div>
@@ -547,7 +545,7 @@ research/ impact/</pre>
       <svg class="deco star" style="top:-14px; right:-14px"><use href="#star"/></svg>
       <div class="contact-head">
         <div class="crew small" aria-hidden="true">
-          <div class="pal"><span class="bubble">Join us!</span><div class="tile" data-av="bob"></div></div>
+          <div class="pal"><span class="bubble">Join us!</span><div class="tile" data-av="curly"></div></div>
         </div>
         <h2>Join the Party</h2>
         <div class="crew small" aria-hidden="true">
@@ -583,7 +581,7 @@ research/ impact/</pre>
       "..hhhhsssshhhh..", "..hhsssssssshh..", "..hhsssssssshh..", "..hh"+FACE[0]+"hh..",
       "..hh"+FACE[1]+"hh..", "..hh"+FACE[2]+"hh..", "..hhhsssssshhh..", "..hhhhhsshhhhh..",
       "..hhhcccccchhh..", "..hccccccccccc..", "..cccccccccccc..", "..cccccccccccc.." ] },
-    pixie: { skin: "#eec39a", hair: "#1b1b2a", shirt: "#e8823a", grid: [
+    pixie: { skin: "#a86b45", hair: "#1b1b2a", shirt: "#e8823a", grid: [
       "................", "................", "....hhhhhhhh....", "...hhhhhhhhhh...",
       "...hhhhhhhhhhh..", "...hssssssssh...", "....ssssssss....", "...."+FACE[0]+"....",
       "...."+FACE[1]+"....", "...."+FACE[2]+"....", ".....ssssss.....", ...SHIRT(true) ] },
@@ -591,14 +589,10 @@ research/ impact/</pre>
       ".....123456.....", ".....123456.....", ".....123456.....", "....d123456d....",
       "....d123456d....", "....ssssssss....", "....ssssssss....", "...."+FACE[0]+"....",
       "...."+FACE[1]+"a...", "...."+FACE[2]+"....", ".....ssssss.....", ...SHIRT(false) ] },
-    bob: { skin: "#f5d5b5", hair: "#1b1b2a", shirt: "#a88bf0", grid: [
-      "................", "....hhhhhhhh....", "...hhhhhhhhhh...", "..hhhhhhhhhhhh..",
-      "..hhhhhhhhhhhh..", "..hhsssssssshh..", "..hhsssssssshh..", "..hhsgeggegshh..",
-      "..hh"+FACE[1]+"hh..", "..hh"+FACE[2]+"hh..", "..hhhsssssshhh..", ...SHIRT(true) ] },
-    pony: { skin: "#efc8a2", hair: "#2a1a14", shirt: "#f28dbb", grid: [
-      "................", ".....hhhhhh.....", "....hhhhhhhh....", "...hhhhhhhhhhh..",
-      "...hhsssssshhhh.", "...hsssssssshhh.", "....sssssssshhh.", "...."+FACE[0]+".hh.",
-      "...."+FACE[1]+".hh.", "...."+FACE[2]+"..h.", ".....ssssss.....", ...SHIRT(false) ] },
+    curly: { skin: "#6b4128", hair: "#2a1a14", shirt: "#a88bf0", grid: [
+      "....hhhhhhhh....", "..hhhhhhhhhhhh..", ".hhhhhhhhhhhhhh.", ".hhhhhhhhhhhhhh.",
+      ".hhhhhhhhhhhhhh.", ".hhhsssssssshhh.", ".hhhsssssssshhh.", ".hhhsgeggegshhh.",
+      ".hhh"+FACE[1]+"hhh.", "..hh"+FACE[2]+"hh..", "...hhsssssshh...", ...SHIRT(true) ] },
     bun: { skin: "#e0a77a", hair: "#e8574a", shirt: "#63c7bf", grid: [
       "......hhhh......", "......hhhh......", "....hhhhhhhh....", "...hhhhhhhhhh...",
       "...hhhhhhhhhh...", "...hssssssssh...", "....ssssssss....", "...."+FACE[0]+"....",

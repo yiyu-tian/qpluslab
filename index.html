@@ -267,6 +267,9 @@
   .start:hover { animation: none; color: var(--pink); }
 
   /* HUD xp bar */
+  .burger { display: none; background: var(--navy-3); border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); width: 42px; height: 38px; padding: 7px 8px; cursor: pointer; flex-direction: column; justify-content: space-between; }
+  .burger i { display: block; height: 4px; background: var(--gold); }
+  nav.open .burger i:nth-child(2) { opacity: 0; }
   .hud { display: flex; align-items: center; gap: 8px; font-family: "Press Start 2P", monospace; font-size: 9px; color: var(--gold); }
   .hud b { width: 90px; height: 10px; background: var(--ink); border: 2px solid var(--teal-dark); display: block; }
   .hud i { display: block; height: 100%; width: 0; background: var(--gold); }
@@ -294,6 +297,12 @@
   @media (max-width: 640px) {
     body { font-size: 20px; }
     nav ul { display: none; }
+    .burger { display: flex; }
+    nav.open ul {
+      display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--navy); border-bottom: var(--px) solid var(--ink); box-shadow: 0 var(--px) 0 var(--teal-dark);
+    }
+    nav.open ul a { display: block; padding: 18px 20px; font-size: 13px; border-top: 2px dashed var(--navy-3); }
     .hero { padding: 40px 16px 32px; }
     .term { display: none; }
     .contact-head .crew.small { display: none; }
@@ -333,11 +342,12 @@
   <div class="wrap">
     <a href="#top" class="logo">Q<span>+</span> LAB</a>
     <div class="hud" aria-hidden="true">XP <b><i id="xp"></i></b> <span id="lv">LV1</span></div>
-    <ul>
+    <ul id="navmenu">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="navmenu"><i></i><i></i><i></i></button>
   </div>
 </nav>
 
@@ -658,6 +668,11 @@ research/ impact/</pre>
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 }) : null;
   document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+  // mobile burger
+  const navEl = document.querySelector("nav"), burger = document.querySelector(".burger");
+  burger.addEventListener("click", () => { const o = navEl.classList.toggle("open"); burger.setAttribute("aria-expanded", o); });
+  document.querySelectorAll("nav ul a").forEach(a => a.addEventListener("click", () => { navEl.classList.remove("open"); burger.setAttribute("aria-expanded", false); }));
 
   // active nav link
   const links = [...document.querySelectorAll('nav ul a')];

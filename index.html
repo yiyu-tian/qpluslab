@@ -272,6 +272,7 @@
   .hud i { display: block; height: 100%; width: 0; background: var(--gold); }
   @media (max-width: 640px) { .hud b { width: 60px; } }
 
+  .chest { display: none; }
   .contact-head { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
   /* ---------- reveal ---------- */
@@ -296,6 +297,10 @@
     .hero { padding: 40px 16px 32px; }
     .term { display: none; }
     .contact-head .crew.small { display: none; }
+    .chest { display: block; width: 64px; height: 80px; margin: 0 auto 10px; animation: bob 1.6s steps(2) infinite; }
+    .contact { padding: 26px 18px; }
+    .contact .btn.big { font-size: 9px; padding: 10px 10px; }
+    .contact .links { gap: 10px; }
     .crew:not(.small) { flex-wrap: nowrap; gap: 8px; }
     .crew:not(.small) .pal { width: auto; flex: 1 1 0; min-width: 0; max-width: 72px; }
     .crew:not(.small) .tile { border-width: 3px; box-shadow: 3px 3px 0 rgba(0,0,0,.4); }
@@ -550,6 +555,15 @@ research/ impact/</pre>
     <h2 class="label frame">Contact</h2>
     <div class="frame contact">
       <svg class="deco star" style="top:-14px; right:-14px"><use href="#star"/></svg>
+      <svg class="chest" viewBox="0 -4 16 20" shape-rendering="crispEdges" aria-hidden="true">
+        <rect x="2" y="-3" width="1" height="1" fill="#f5c86b"/><rect x="13" y="-2" width="1" height="1" fill="#fdf3d6"/><rect x="7" y="-4" width="1" height="2" fill="#f5c86b"/><rect x="6" y="-3" width="3" height="1" fill="#f5c86b"/>
+        <rect x="0" y="1" width="16" height="15" fill="#13192e"/>
+        <rect x="1" y="2" width="14" height="4" fill="#c8742a"/><rect x="1" y="2" width="14" height="1" fill="#e39a52"/>
+        <rect x="1" y="6" width="14" height="2" fill="#f5c86b"/>
+        <rect x="1" y="8" width="14" height="7" fill="#a85a1e"/><rect x="1" y="11" width="14" height="1" fill="#7a3e12"/>
+        <rect x="3" y="2" width="1" height="13" fill="#f5c86b"/><rect x="12" y="2" width="1" height="13" fill="#f5c86b"/>
+        <rect x="6" y="5" width="4" height="4" fill="#fff1b8"/><rect x="7" y="6" width="2" height="2" fill="#13192e"/>
+      </svg>
       <div class="contact-head">
         <div class="crew small" aria-hidden="true">
           <div class="pal"><span class="bubble">Join us!</span><div class="tile" data-av="curly"></div></div>
